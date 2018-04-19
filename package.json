@@ -1,0 +1,29 @@
+{
+  "name": "eslint-plugin-sideeffects",
+  "version": "0.0.0",
+  "description": "todo later",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
+  "author": "Roman",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "espree": "^3.5.4",
+    "immutable": "^3.8.2",
+    "requireindex": "~1.1.0"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.0",
+    "eslint": "~3.9.1",
+    "jest": "^22.4.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "license": "ISC"
+}
