@@ -13,14 +13,17 @@
     "test": "jest"
   },
   "dependencies": {
+    "d3": "^5.1.0",
     "espree": "^3.5.4",
     "immutable": "^3.8.2",
-    "requireindex": "~1.1.0"
+    "requireindex": "~1.1.0",
+    "svg.js": "^2.6.4"
   },
   "devDependencies": {
     "chalk": "^2.4.0",
     "eslint": "~3.9.1",
-    "jest": "^22.4.0"
+    "jest": "^22.4.0",
+    "svgdom": "0.0.15"
   },
   "engines": {
     "node": ">=0.10.0"
