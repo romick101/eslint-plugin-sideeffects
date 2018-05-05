@@ -1,28 +1,34 @@
-"use strict";
+'use strict';
 
-const rule = require("../../../lib/rules/no-global-obj-altering"),
-    RuleTester = require("eslint").RuleTester;
+const rule = require('../../../lib/rules/no-global-obj-altering'),
+    RuleTester = require('eslint').RuleTester;
 
+RuleTester.setDefaultConfig({
+    parserOptions: {
+        ecmaVersion: 6
+    }
+});
 const ruleTester = new RuleTester();
 
-ruleTester.run("no-global-obj-altering", rule, {
+ruleTester.run('no-global-obj-altering', rule, {
     valid: [{
-        code: "var foo = true",
-        options: [{
-            allowFoo: true
-        }]
-    }],
+            code: 'function foo () {}'
+        },
+        {
+            code: 'let a = 10;'
+        }
+    ],
 
     invalid: [{
-            code: "var invalidVariable = true",
+            code: 'function impureFoo () {}',
             errors: [{
-                message: "Unexpected invalid variable."
+                message: 'Impure function found: impureFoo'
             }]
         },
         {
-            code: "var invalidVariable = true",
+            code: 'let impureFoo = () => {};',
             errors: [{
-                message: /^Unexpected.+variable/
+                message: 'Impure function found: impureFoo'
             }]
         }
     ]
