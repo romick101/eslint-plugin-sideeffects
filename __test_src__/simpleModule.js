@@ -18,10 +18,7 @@ function impureFunction() {
     someGlobalVariable.push(4);
 }
 
-const impureArrowFunction = () => {
-    console.log(chalk.yellow('I have side-effects'));
-    someGlobalVariable.push(5);
-}
+const impureArrowFunction = () => someGlobalVariable.push(5)
 
 module.exports = {
     pureFunction,
