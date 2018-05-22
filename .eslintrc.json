@@ -1,0 +1,19 @@
+{
+    "env": {
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "rules": {
+        "array-callback-return": "warn",
+        "block-scoped-var": "warn",
+        "no-param-reassign": ["warn", {
+            "props": true
+        }],
+        "no-extend-native": "warn",
+        "no-global-assign": "warn",
+        "no-invalid-this": "warn",
+        "no-shadow": "warn"
+    }
+}
