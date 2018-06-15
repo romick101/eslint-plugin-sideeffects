@@ -13,7 +13,17 @@
         }],
         "no-extend-native": "warn",
         "no-global-assign": "warn",
+        "no-implicit-globals": "warn",
         "no-invalid-this": "warn",
-        "no-shadow": "warn"
+        "no-shadow": "warn",
+        "no-unused-expressions": "warn",
+        "no-unused-vars": "warn",
+        "no-undef": ["error", {
+            "globals": {
+                "describe": false,
+                "it": false,
+                "expect": false
+            }
+        }]
     }
 }

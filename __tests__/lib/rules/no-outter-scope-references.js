@@ -1,6 +1,6 @@
 'use strict';
 
-const rule = require('../../../lib/rules/no-global-var-references'),
+const rule = require('../../../lib/rules/no-outter-scope-references'),
     RuleTester = require('eslint').RuleTester;
 
 RuleTester.setDefaultConfig({
@@ -12,14 +12,18 @@ const ruleTester = new RuleTester();
 
 ruleTester.run('no-global-obj-altering', rule, {
     valid: [{
-        code: `const someGlobalVariable = [1, 2, 3];
-
-            function pureFunction(arg) {
-                const localEmptyObject = Object.create(null);
-                return Object.assign(localEmptyObject, {
-                    value: arg
-                });
-            }`
+        code: `const explicitGlobal = {
+            key: 'DefaultValue'
+            };
+            if (true) {
+            implicitGlobal = [1, 2, 3];
+            }
+            function foo() {
+            Object.assign(explicitGlobal, {
+            key: 'AlteredValue'});
+            implicitGlobal.sort();
+            process.env.HEAP_SIZE = null;
+            } `
     }],
     invalid: [{
         code: `

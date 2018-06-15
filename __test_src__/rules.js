@@ -40,7 +40,8 @@ function foo1(arg) {
  */
 
 function foo2() {
-    expr1;
-    expr2;
+  //  expr1;
+  //  expr2;
 }
 
+console.log(foo2());
