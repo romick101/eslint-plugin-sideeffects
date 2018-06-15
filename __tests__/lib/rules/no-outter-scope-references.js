@@ -12,18 +12,7 @@ const ruleTester = new RuleTester();
 
 ruleTester.run('no-global-obj-altering', rule, {
     valid: [{
-        code: `const explicitGlobal = {
-            key: 'DefaultValue'
-            };
-            if (true) {
-            implicitGlobal = [1, 2, 3];
-            }
-            function foo() {
-            Object.assign(explicitGlobal, {
-            key: 'AlteredValue'});
-            implicitGlobal.sort();
-            process.env.HEAP_SIZE = null;
-            } `
+        code: `function foo() {}`
     }],
     invalid: [{
         code: `
