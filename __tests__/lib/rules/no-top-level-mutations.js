@@ -13,19 +13,23 @@ const ruleTester = new RuleTester();
 ruleTester.run('no-top-level-mutations', rule, {
   valid: [{
     code: `
-          //   function foo() {
-          //   var localVariable = {
-          //     key: 'DefaultValue'};
-          //   localVariable.key = 'AlteredValue';
-          //   if (true) {
-          //     let ScopedVariable = [1, 2, 3];
-          //     ScopedVariable.push(4);
-          //   }
-          //   const closure = {key: 'EnclosedValue'};
-          //   const bar = () => 
-          //     Object.assign(closure, {
-          //       key: 'AlteredEnclosedValue'});
-          // }
+            function foo() {
+              var localVariable = {
+                key: 'DefaultValue'
+              };
+              localVariable.key = 'AlteredValue';
+              if (true) {
+                let ScopedVariable = [1, 2, 3];
+                ScopedVariable.push(4);
+              }
+              const closure = {
+                key: 'EnclosedValue'
+              };
+              const bar = () =>
+                Object.assign(closure, {
+                  key: 'AlteredEnclosedValue'
+                });
+            }
           `
   }],
   invalid: [{
@@ -36,19 +40,31 @@ ruleTester.run('no-top-level-mutations', rule, {
           if (true) {
             implicitGlobal = [1, 2, 3];
           }
+
           function foo() {
-            // Object.assign(explicitGlobal, {
-            //   key: 'AlteredValue'});
+            Object.assign(explicitGlobal, {
+              key: 'AlteredValue'
+            });
             implicitGlobal.sort();
-           // process.env.HEAP_SIZE = null;
+            process.env.HEAP_SIZE = null;
+            console.log = jest.fn();
+            console = {
+              log: jest.fn()
+            };
           }
           `,
     errors: [{
-      message: 'Mutating global variable explicitGlobal'
+      message: 'Assigning global variable implicitGlobal'
     }, {
-      message: 'Mutating global variable implicitGlobal'
+      message: 'Object.assign mutating global variable explicitGlobal'
     }, {
-      message: 'Mutating global variable process'
+      message: 'Method sort mutating global variable implicitGlobal'
+    }, {
+      message: 'Assigning property to global variable process'
+    }, {
+      message: 'Assigning property to global variable console'
+    }, {
+      message: 'Assigning global variable console'
     }]
   }]
 });
