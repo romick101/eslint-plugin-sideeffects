@@ -1,6 +1,7 @@
 {
     "env": {
-        "node": true
+        "node": true,
+        "jest": true
     },
     "parserOptions": {
         "ecmaVersion": 6
@@ -18,12 +19,6 @@
         "no-shadow": "warn",
         "no-unused-expressions": "warn",
         "no-unused-vars": "warn",
-        "no-undef": ["error", {
-            "globals": {
-                "describe": false,
-                "it": false,
-                "expect": false
-            }
-        }]
+        "no-undef": "error"
     }
 }
