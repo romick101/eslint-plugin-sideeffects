@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-sideeffects",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ESlint plugin to detect side-effects",
   "keywords": [
     "eslint",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "jest": "^23.1.0"
+    "jest": "^20.0.4"
   },
   "engines": {
     "node": ">=0.10.0"

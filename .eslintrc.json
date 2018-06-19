@@ -19,7 +19,6 @@
         "no-shadow": "warn",
         "no-unused-expressions": "warn",
         "no-unused-vars": "warn",
-        "no-undef": "error",
-        "no-top-level-mutations": "warn"
+        "no-undef": "error"
     }
 }
