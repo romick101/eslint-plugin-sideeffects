@@ -32,6 +32,14 @@ ruleTester.run('no-arg-mutations', rule, {
             arg2.defineProperty();
             return arguments[0].push(5);
         }
+        class C {
+            constructor(arg) {
+                Object.assign(arg, {});
+            }
+            method(arg) {
+                arg.sort();
+            }
+        }
         const baz1 = arg => arg.sort();
         const baz2 = () => arguments[0].push(5);
         const baz3 = arg => Object.assign(arg, {key: 'value'});
@@ -46,6 +54,10 @@ ruleTester.run('no-arg-mutations', rule, {
             message: 'Method defineProperty mutating function argument arg2'
         }, {
             message: 'Method push mutating function arguments'
+        }, {
+            message: 'Object.assign mutating function argument arg'
+        }, {
+            message: 'Method sort mutating function argument arg'
         }, {
             message: 'Method sort mutating function argument arg'
         }, {
