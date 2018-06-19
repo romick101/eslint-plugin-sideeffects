@@ -12,26 +12,33 @@ const ruleTester = new RuleTester();
 
 ruleTester.run('no-top-level-mutations', rule, {
   valid: [{
-    code: `
-            function foo() {
-              var localVariable = {
-                key: 'DefaultValue'
-              };
-              localVariable.key = 'AlteredValue';
-              if (true) {
-                let ScopedVariable = [1, 2, 3];
-                ScopedVariable.push(4);
-              }
-              const closure = {
-                key: 'EnclosedValue'
-              };
-              const bar = () =>
-                Object.assign(closure, {
-                  key: 'AlteredEnclosedValue'
-                });
-            }
-            module.exports = { foo };
-          `
+    code:
+      // `
+      //         function foo() {
+      //           var localVariable = {
+      //             key: 'DefaultValue'
+      //           };
+      //           localVariable.key = 'AlteredValue';
+      //           if (true) {
+      //             let ScopedVariable = [1, 2, 3];
+      //             ScopedVariable.push(4);
+      //           }
+      //           const closure = {
+      //             key: 'EnclosedValue'
+      //           };
+      //           const bar = () =>
+      //             Object.assign(closure, {
+      //               key: 'AlteredEnclosedValue'
+      //             });
+      //           const response = JSON.stringify(bar());
+      //         }
+      //         module.exports = { foo };
+      //       `
+      `class CheckUsage extends ServiceLink {
+         former ([{response}]) {
+          response.res = JSON.stringify(response.Usage);
+      }
+  }`
   }],
   invalid: [{
     code: `
@@ -41,11 +48,6 @@ ruleTester.run('no-top-level-mutations', rule, {
           };
           if (true) {
             implicitGlobal = [1, 2, 3];
-          }
-          class C {
-            method() {
-              implicitGlobal.push(5);
-            }
           }
           function foo() {
             Object.assign(explicitGlobal, {
@@ -58,12 +60,15 @@ ruleTester.run('no-top-level-mutations', rule, {
               log: jest.fn()
             };
           }
+          class C {
+            method() {
+              implicitGlobal.push(5);
+            }
+          }
           module.exports = C;
           `,
     errors: [{
       message: 'Assigning global variable implicitGlobal'
-    }, {
-      message: 'Method push mutating global variable implicitGlobal'
     }, {
       message: 'Object.assign mutating global variable explicitGlobal'
     }, {
@@ -74,6 +79,8 @@ ruleTester.run('no-top-level-mutations', rule, {
       message: 'Assigning property to global variable console'
     }, {
       message: 'Assigning global variable console'
+    }, {
+      message: 'Method push mutating global variable implicitGlobal'
     }]
   }]
 });
