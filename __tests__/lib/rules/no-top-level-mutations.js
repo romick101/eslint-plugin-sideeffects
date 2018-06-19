@@ -12,33 +12,31 @@ const ruleTester = new RuleTester();
 
 ruleTester.run('no-top-level-mutations', rule, {
   valid: [{
-    code:
-      // `
-      //         function foo() {
-      //           var localVariable = {
-      //             key: 'DefaultValue'
-      //           };
-      //           localVariable.key = 'AlteredValue';
-      //           if (true) {
-      //             let ScopedVariable = [1, 2, 3];
-      //             ScopedVariable.push(4);
-      //           }
-      //           const closure = {
-      //             key: 'EnclosedValue'
-      //           };
-      //           const bar = () =>
-      //             Object.assign(closure, {
-      //               key: 'AlteredEnclosedValue'
-      //             });
-      //           const response = JSON.stringify(bar());
-      //         }
-      //         module.exports = { foo };
-      //       `
-      `class CheckUsage extends ServiceLink {
-         former ([{response}]) {
-          response.res = JSON.stringify(response.Usage);
-      }
-  }`
+    code: `     function foo() {
+                var localVariable = {
+                  key: 'DefaultValue'
+                };
+                localVariable.key = 'AlteredValue';
+                if (true) {
+                  let ScopedVariable = [1, 2, 3];
+                  ScopedVariable.push(4);
+                }
+                const closure = {
+                  key: 'EnclosedValue'
+                };
+                const bar = () =>
+                  Object.assign(closure, {
+                    key: 'AlteredEnclosedValue'
+                  });
+                const response = JSON.stringify(bar());
+              }
+              class Class extends AnotherClass {
+                former ([{response}]) {
+                 response.res = JSON.stringify(response.Usage);
+                }
+              }
+              module.exports = Class;
+            `
   }],
   invalid: [{
     code: `
