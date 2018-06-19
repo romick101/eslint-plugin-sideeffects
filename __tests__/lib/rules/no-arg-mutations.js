@@ -14,8 +14,14 @@ ruleTester.run('no-arg-mutations', rule, {
     valid: [{
         code: `
         function foo(arg1, arg2) {
+            Object.assign({}, arg1);
             return arg1 + arg2;
         }
+        function composer(...args) {}
+        function sortByGetter(arr, getter, sortOrder) {
+            return arr.slice().sort(comparator(getter, sortOrder));
+        } 
+
         function bar() {
             const smth = arguments.someGetter();
             smth.arguments.sort();
