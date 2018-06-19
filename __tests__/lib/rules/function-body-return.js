@@ -29,6 +29,9 @@ ruleTester.run('function-body-return', rule, {
                 return 5;
             }
         }
+        class C {
+            constructor() {}
+        }
         const correctArrow0 = () => {return 5;}
         const correctArrow1 = () => 5
         `
